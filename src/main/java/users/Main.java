@@ -22,7 +22,7 @@ public class Main {
 
         try { connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
-//            statement.execute("CREATE TABLE users(firstName varchar, id Integer, lastName varchar, age int");
+//            statement.execute("CREATE TABLE users(, id Integer, firstName varchar,lastName varchar, age int");
             statement.execute("""
                     INSERT INTO users (id, firstName,lastName,age)
                             VALUES  (1, 'Aliaksandr', 'Aliakutkin',33),
