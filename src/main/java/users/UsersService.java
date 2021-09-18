@@ -127,17 +127,19 @@ public class UsersService {
 
                                             // Изменение по id
 
-   public void updateTable(){
+   public void updateUserInTable(ModelUsers users){
        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-           Statement statement = conn.createStatement();
-           int rows = statement.executeUpdate("UPDATE users1 SET age = 55 WHERE id = 1");
-           System.out.printf("Updated %d rows", rows);
-           System.out.println("Database has been created!");
+           String sql = "UPDATE user_table SET firstName=?, lastName=?, age=? WHERE id = 2";
+           PreparedStatement preparedStatement = conn.prepareStatement(sql);
+           preparedStatement.setString(1, users.getFirstName());
+           preparedStatement.setString(2,users.getLastName());
+           preparedStatement.setInt(3, users.getAge());
 
-       }catch (Exception ex) {
-           System.out.println("Connection failed...");
+           int rows = preparedStatement.executeUpdate();
+           System.out.println(rows);
 
-           System.out.println(ex);
+       } catch (SQLException throwables) {
+           throwables.printStackTrace();
        }
 
    }
