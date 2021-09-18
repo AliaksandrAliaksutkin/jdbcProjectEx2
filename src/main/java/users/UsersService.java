@@ -44,6 +44,22 @@ public class UsersService {
         }
    }
 
+//    public void addUsers1() {
+//        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+//            String sql = "INSERT INTO users1 (firstName, lastName, age)  (?,?,?)";
+//            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+//            preparedStatement.setString(1, user);
+//            preparedStatement.setString(2,lastName);
+//            preparedStatement.setInt(2, age);
+//
+//            int rows = preparedStatement.executeUpdate();
+//
+//            System.out.printf("%d rows added", rows);
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//    }
+
 
                                             // получение всех юзеров
 
