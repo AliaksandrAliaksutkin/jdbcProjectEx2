@@ -10,10 +10,10 @@ public class UsersService {
 
                                             // создание таблицы user
 
-    public void createTable() {
+    public void createTableUser() {
 
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            String sqlCommand = " CREATE TABLE user (id serial, " +
+            String sqlCommand = " CREATE TABLE user_table (id serial, " +
                                 "firstName varchar(20), " +
                                 "lastName varchar(20), " +
                                 "age int);";
@@ -29,36 +29,56 @@ public class UsersService {
         }
     }
 
+                                                                        // создание таблицы user_address
+    public void createTableUserAddress() {
+
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            String sqlCommand = " CREATE TABLE user_address (id serial, " +
+                    "city varchar(20), " +
+                    "street varchar(20), " +
+                    "house int);";
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(sqlCommand);
+
+            System.out.println("Database has been created!");
+
+        }catch (Exception ex) {
+            System.out.println("Connection failed...");
+
+            System.out.println(ex);
+        }
+    }
+
                                             // добавление userОВ в таблицу (но не нашего класса ModelUsers)
 
    public void addUsers() {
+//        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+//            Statement statement = conn.createStatement();
+//            statement.execute("""
+//                    INSERT INTO user_table (firstName,lastName,age)
+//                            VALUES  ( 'Michail', 'Zarubin',30),
+//                                     ( 'Dmitry', 'Prichep',34);""");
+//
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+   }
+
+    public void addUsers1(ModelUsers users) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            Statement statement = conn.createStatement();
-            statement.execute("""
-                    INSERT INTO users1 (firstName,lastName,age)
-                            VALUES  ( 'Michail', 'Zarubin',30),
-                                     ( 'Dmitry', 'Prichep',34);""");
+            String sql = "INSERT INTO user_table (firstName, lastName, age) VALUES (?,?,?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, users.getFirstName());
+            preparedStatement.setString(2,users.getLastName());
+            preparedStatement.setInt(3, users.getAge());
+
+            int rows = preparedStatement.executeUpdate();
+            System.out.println(rows);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-   }
-
-//    public void addUsers1() {
-//        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-//            String sql = "INSERT INTO users1 (firstName, lastName, age)  (?,?,?)";
-//            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-//            preparedStatement.setString(1, user);
-//            preparedStatement.setString(2,lastName);
-//            preparedStatement.setInt(2, age);
-//
-//            int rows = preparedStatement.executeUpdate();
-//
-//            System.out.printf("%d rows added", rows);
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//    }
+    }
 
 
                                             // получение всех юзеров
@@ -83,8 +103,7 @@ public class UsersService {
         System.out.println(ex);
     }
 }
-
-                                                                //
+                                // плучение по id
 
     public void getUsersById() {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {

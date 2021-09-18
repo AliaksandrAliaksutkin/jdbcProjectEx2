@@ -13,10 +13,18 @@ public class Main {
 
         JDBCConnection jdbcConnection = new JDBCConnection();
         UsersService usersService = new UsersService();
-//        jdbcConnection.jdbcConnect();    // проверка соединения
-//        usersService.createTable();         // создание таблицы
-  //     usersService.addUsers();          // добавление users в таблицу
-        usersService.addUsers1();
+
+        jdbcConnection.jdbcConnect();    // проверка соединения
+//        usersService.createTableUser();
+//        usersService.createTableUserAddress();
+//        usersService.addUsers();          // добавление users в таблицу
+//        usersService.addUsers1(user);
+        usersService.addUsers1(user1);
+        usersService.addUsers1(user2);
+        usersService.addUsers1(user3);
+
+
+
 //        usersService.updateTable();       // изменение по id
 //        usersService.deleteUserInTable();   // удаление по id
 //        usersService.deleteAllUserInTable();    // удаление всех users
