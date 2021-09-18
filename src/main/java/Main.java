@@ -6,7 +6,12 @@ public class Main {
         JDBCConnection jdbcConnection = new JDBCConnection();
         UsersService usersService = new UsersService();
         jdbcConnection.jdbcConnection();    // проверка соединения
-        usersService.insertInto();          // добавление users в таблицу
+//        usersService.createTable();         // создание таблицы
+//        usersService.insertInto();          // добавление users в таблицу
+//        usersService.updateTable();       // изменение по id
+//        usersService.deleteUserInTable();   // удаление по id
+        usersService.deleteAllUserInTable();
+
 
     }
 }

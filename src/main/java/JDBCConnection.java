@@ -5,15 +5,14 @@ import java.sql.Statement;
 
 public class JDBCConnection {
 
-     static final String USERNAME = "postgres";
-     static final String PASSWORD = "821252";
-     static final String HOST = "localhost";
-     static final String PORT = "5432";
-     static final String DBNAME = ("postgres");
-     static final String URL = ("jdbc:postgresql://localhost:5432/postgres");
+    private static final String USERNAME = "postgres";
+    private static final String PASSWORD = "821252";
+    private static final String HOST = "localhost";
+    private static final String PORT = "5432";
+    private static final String DBNAME = ("postgres");
+    private static final String URL = ("jdbc:postgresql://localhost:5432/postgres");
 
-
-    public void jdbcConnection() {
+    public static void jdbcConnection() {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
 
             if (conn != null) {
