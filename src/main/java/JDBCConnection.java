@@ -12,7 +12,7 @@ public class JDBCConnection {
     private static final String DBNAME = ("postgres");
     private static final String URL = ("jdbc:postgresql://localhost:5432/postgres");
 
-    public static void jdbcConnection() {
+    public static void jdbcConnect() {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
 
             if (conn != null) {

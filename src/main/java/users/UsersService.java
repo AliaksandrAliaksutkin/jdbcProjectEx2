@@ -1,8 +1,5 @@
 package users;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class UsersService {
     private static final String USERNAME = "postgres";
@@ -14,27 +11,27 @@ public class UsersService {
                                             // создание таблицы user
 
     public void createTable() {
-//
-//        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-//            String sqlCommand = " CREATE TABLE user (id serial, " +
-//                                "firstName varchar(20), " +
-//                                "lastName varchar(20), " +
-//                                "age int);";
-//            Statement statement = conn.createStatement();
-//            statement.executeUpdate(sqlCommand);
-//
-//            System.out.println("Database has been created!");
-//
-//        }catch (Exception ex) {
-//            System.out.println("Connection failed...");
-//
-//            System.out.println(ex);
-//        }
+
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            String sqlCommand = " CREATE TABLE user (id serial, " +
+                                "firstName varchar(20), " +
+                                "lastName varchar(20), " +
+                                "age int);";
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(sqlCommand);
+
+            System.out.println("Database has been created!");
+
+        }catch (Exception ex) {
+            System.out.println("Connection failed...");
+
+            System.out.println(ex);
+        }
     }
 
                                             // добавление userОВ в таблицу (но не нашего класса ModelUsers)
 
-   public void insertInto() {
+   public void addUsers() {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             Statement statement = conn.createStatement();
             statement.execute("""
@@ -46,6 +43,53 @@ public class UsersService {
             throwables.printStackTrace();
         }
    }
+
+
+                                            // получение всех юзеров
+
+    public void getAllUsers() {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM users1");
+            while(resultSet.next()){
+
+                int id = resultSet.getInt(1);
+                String firstName = resultSet.getString(2);
+                String lastName = resultSet.getString(3);
+                int age = resultSet.getInt(4);
+                System.out.println("id: "+ id + ", firstName: " + firstName+ ", lastName: " +lastName+ ", age: " +age+";");
+
+            }
+        }
+     catch(Exception ex){
+        System.out.println("Connection failed...");
+
+        System.out.println(ex);
+    }
+}
+
+                                                                //
+
+    public void getUsersById() {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT*FROM users1 WHERE id=11");
+            while(resultSet.next()){
+
+                int id = resultSet.getInt(1);
+                String firstName = resultSet.getString(2);
+                String lastName = resultSet.getString(3);
+                int age = resultSet.getInt(4);
+                System.out.println("id: "+ id + ", firstName: " + firstName+ ", lastName: " +lastName+ ", age: " +age+";");
+
+            }
+        } catch(Exception ex){
+            System.out.println("Connection failed...");
+
+            System.out.println(ex);
+        }
+    }
+
                                             // Изменение по id
 
    public void updateTable(){
