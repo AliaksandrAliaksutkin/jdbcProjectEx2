@@ -5,7 +5,7 @@ import java.sql.Statement;
 
 public class JDBCConnection {
 
-    private static final String USERNAME = "postgres";
+    private static final String USERNAME = "postgres";//todo а зачем одинаковые переменные в двух классах? вынеси в один отдельный
     private static final String PASSWORD = "821252";
     private static final String HOST = "localhost";
     private static final String PORT = "5432";
@@ -16,13 +16,13 @@ public class JDBCConnection {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
 
             if (conn != null) {
-                System.out.println("Connected to the database!");
+                System.out.println("Connected to the database!");\\ todo здесь тоже логирование
             } else {
                 System.out.println("Failed to make connection!");
             }
 
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());\\ todo здесь тоже логирование
         } catch (Exception e) {
             e.printStackTrace();
         }
