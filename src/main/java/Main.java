@@ -1,6 +1,7 @@
 import users.ModelUsers;
 import users.UsersService;
-
+// todo разбей классы по пакетам, model это модели, repository это работа с б.д
+// todo ветка должна называться не мастер а jdbc1, а вторая задаче вторая ветка jdbc2 в этом же проекте
 public class Main {
 
     public static void main(String[] args) {
@@ -12,7 +13,7 @@ public class Main {
         ModelUsers users4 = new ModelUsers("Update","Updatov",99);
 
 
-        JDBCConnection jdbcConnection = new JDBCConnection();
+        JDBCConnection jdbcConnection = new JDBCConnection();//todo зачем здесь это если у тебя это происходит в каждом методе, это лишнее
         UsersService usersService = new UsersService();
 
         jdbcConnection.jdbcConnect();    // проверка соединения
