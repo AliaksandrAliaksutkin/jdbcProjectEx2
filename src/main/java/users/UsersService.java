@@ -67,7 +67,7 @@ public class UsersService {
     public void addUsers1(ModelUsers users) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             String sql = "INSERT INTO user_table (firstName, lastName, age) VALUES (?,?,?)";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);//todo его используй везде, а то где-то обычный statement, почитай почему он лучше
             preparedStatement.setString(1, users.getFirstName());
             preparedStatement.setString(2,users.getLastName());
             preparedStatement.setInt(3, users.getAge());
@@ -83,7 +83,7 @@ public class UsersService {
 
                                             // получение всех юзеров
 
-    public void getAllUsers() {
+    public void getAllUsers() { //todo почему а почему метод который получает всех юзер ничего не возвращает? логично что он должен вернуть всех пользователей
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM users1");
@@ -98,14 +98,14 @@ public class UsersService {
             }
         }
      catch(Exception ex){
-        System.out.println("Connection failed...");
+        System.out.println("Connection failed...");//todo это что-то лишнее, просто бросай ex.printStackTace... и везде так
 
         System.out.println(ex);
     }
 }
                                 // плучение по id
 
-    public void getUsersById() {
+    public void getUsersById() {//todo тоже что и выше, должен что-то вернуть
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT*FROM users1 WHERE id=11");
