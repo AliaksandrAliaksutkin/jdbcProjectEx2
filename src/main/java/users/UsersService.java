@@ -1,8 +1,8 @@
 package users;
 import java.sql.*;
-
+//todo этот класс корректнее не сервис назвать, а репозиторий. так как он просто работает с бд, никакой бизнес логики в нем нет
 public class UsersService {
-    private static final String USERNAME = "postgres";
+    private static final String USERNAME = "postgres";.. //todo это да, лучше в енам, или хотя б отдельный файл
     private static final String PASSWORD = "821252";
     private static final String URL = ("jdbc:postgresql://localhost:5432/postgres");
 
@@ -40,7 +40,7 @@ public class UsersService {
             Statement statement = conn.createStatement();
             statement.executeUpdate(sqlCommand);
 
-            System.out.println("Database has been created!");
+            System.out.println("Database has been created!");\\todo сделай логирование везде где есть вывод
 
         }catch (Exception ex) {
             System.out.println("Connection failed...");
@@ -51,7 +51,7 @@ public class UsersService {
 
                                             // добавление userОВ в таблицу (но не нашего класса ModelUsers)
 
-   public void addUsers() {
+   public void addUsers() {//todo это что? если не надо удали
 //        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
 //            Statement statement = conn.createStatement();
 //            statement.execute("""
