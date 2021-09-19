@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepository {
+    public class UserRepository {
 
     // создание таблицы user
 
@@ -46,7 +46,7 @@ public class UserRepository {
         }
     }
 
-    public void addUsers1(User users) {
+    public void addUserInTable(User users) {
         try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
                 ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
 
@@ -63,7 +63,6 @@ public class UserRepository {
             ex.printStackTrace();
         }
     }
-
 
     // получение всех юзеров
 
@@ -119,9 +118,10 @@ public class UserRepository {
         }
             return null;
     }
-        // Изменение по id
 
-   public void updateUserInTable(User users){
+    // Изменение по id
+
+    public void updateUserInTable(User users){
        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
            PreparedStatement preparedStatement =
@@ -138,9 +138,10 @@ public class UserRepository {
        }
 
    }
-                                            // удаление по id
 
-public void deleteUserInTable(){
+   // удаление по id
+
+    public void deleteUserInTableById(){
     try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
             ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
         PreparedStatement preparedStatement =
@@ -153,7 +154,7 @@ public void deleteUserInTable(){
     }
 }
 
-        public void deleteAllUserInTable () {
+    public void deleteAllUserInTable () {
             try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
                     ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
                 PreparedStatement preparedStatement =

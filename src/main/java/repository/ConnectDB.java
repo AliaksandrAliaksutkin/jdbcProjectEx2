@@ -17,6 +17,4 @@ public enum ConnectDB {
         return str;
     }
 
-
-
 }

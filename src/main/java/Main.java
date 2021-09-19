@@ -3,7 +3,6 @@ import model.UserRepository;
 
 import java.util.List;
 
-// todo ветка должна называться не мастер а jdbc1, а вторая задаче вторая ветка jdbc2 в этом же проекте
 public class Main {
 
     public static void main(String[] args) {
@@ -16,24 +15,19 @@ public class Main {
 
         UserRepository userRepository = new UserRepository();
 
-//        usersService.createTableUser();
-//        usersService.createTableUserAddress();
-//        usersService.addUsers();          // добавление users в таблицу
-//        usersService.addUsers1(user);
-//        usersService.addUsers1(user1);
-//        usersService.addUsers1(user2);
-//        usersService.addUsers1(user3);
-//        userRepository.updateUserInTable(users4);
+        userRepository.createTableUser();
+        userRepository.createTableUserAddress();
+        userRepository.addUserInTable(user);
+        userRepository.addUserInTable(user1);
+        userRepository.addUserInTable(user2);
+        userRepository.addUserInTable(user3);
+        userRepository.updateUserInTable(users4);
+        userRepository.deleteUserInTableById();
+        userRepository.deleteAllUserInTable();
 
-
-
-//        usersService.updateTable();       // изменение по id
-//        usersService.deleteUserInTable();   // удаление по id
-//        userRepository.deleteAllUserInTable();    // удаление всех users
-
-//            userRepository.getAllUsers();
-//            List<User> userList = userRepository.getAllUsers();
-//            System.out.println(userList);
+        userRepository.getAllUsers();
+        List<User> userList = userRepository.getAllUsers();
+        System.out.println(userList);
 
         userRepository.getUsersById();
         user = userRepository.getUsersById();
