@@ -2,6 +2,7 @@ import model.User;
 import model.UserRepository;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Main {
 
@@ -12,6 +13,7 @@ public class Main {
         User user2 = new User("Aleksei", "Alekseev", 43);
         User user3 = new User("Eclampiii", "Evlampiev", 36);
         User users4 = new User("Update","Updatov",99);
+
 
         UserRepository userRepository = new UserRepository();
 

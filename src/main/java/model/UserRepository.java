@@ -4,8 +4,12 @@ import repository.ConnectDB;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
-    public class UserRepository {
+public class UserRepository {
+
+    private static final Logger logger = Logger.getGlobal();
+
 
     // создание таблицы user
 
@@ -18,8 +22,8 @@ import java.util.List;
                     "lastName varchar(20), " +
                     "age int);";
             PreparedStatement preparedStatement = conn.prepareStatement(sqlCommand);
+            logger.info("Database has been created!");
 
-            System.out.println("Database has been created!");               // log???
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -38,8 +42,7 @@ import java.util.List;
                     "house int);";
 
             PreparedStatement preparedStatement = conn.prepareStatement(sqlCommand);
-
-            System.out.println("Database has been created!");                       //todo сделай логирование везде где есть вывод
+            logger.info("Database has been created!");
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -57,7 +60,7 @@ import java.util.List;
             preparedStatement.setInt(3, users.getAge());
 
             int rows = preparedStatement.executeUpdate();
-            System.out.println(rows);                           //log???
+            logger.info("User have been successfully added to the table");
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -80,6 +83,7 @@ import java.util.List;
                     user.setLastName(resultSet.getString(3));
                     user.setAge(resultSet.getInt(4));
                     userList.add(user);
+                    logger.info("Users have been successfully added to userList");
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -131,7 +135,8 @@ import java.util.List;
            preparedStatement.setInt(3, users.getAge());
 
            int rows = preparedStatement.executeUpdate();
-           System.out.println(rows);
+           logger.info("user state changed successfully, in quantity: " + rows);
+
 
        } catch (SQLException ex) {
            ex.printStackTrace();
@@ -147,7 +152,7 @@ import java.util.List;
         PreparedStatement preparedStatement =
                 conn.prepareStatement("DELETE FROM user_table WHERE id = 2");
         int rows = preparedStatement.executeUpdate();
-        System.out.println(rows);
+        logger.info("User deleted it tables successfully, in quantity: " + rows);
 
     }catch (Exception ex) {
       ex.printStackTrace();
@@ -160,7 +165,7 @@ import java.util.List;
                 PreparedStatement preparedStatement =
                         conn.prepareStatement("DELETE FROM user_table");
                 int rows = preparedStatement.executeUpdate();
-                System.out.println(rows);
+                logger.info("Users deleted it tables successfully, in quantity: " + rows);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
