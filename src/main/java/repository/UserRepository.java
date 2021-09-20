@@ -1,5 +1,6 @@
-package model;
-import repository.ConnectDB;
+package repository;
+import model.User;
+import util.ConnectDB;
 
 import java.sql.*;
 import java.util.ArrayList;

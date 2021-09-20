@@ -1,28 +1,32 @@
-package repository;
+package util;
+
+import util.ConnectDB;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
+import java.util.logging.Logger;
 
 public class JDBCConnection {
+
+    private static final Logger logger = Logger.getLogger("util.JDBCConnection");
 
     public static void jdbcConnect() {
         try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
                 ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
 
             if (conn != null) {
-                System.out.println("Connected to the database!");    // todo здесь тоже логирование
+                logger.info("Connected to the database!");
             } else {
-                System.out.println("Failed to make connection!");
+                logger.info("Failed to make connection!");
             }
 
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage()); // todo здесь тоже логирование
+            logger.info(e.getSQLState() + e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }
 
 

@@ -1,8 +1,7 @@
 import model.User;
-import model.UserRepository;
+import repository.UserRepository;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 public class Main {
 

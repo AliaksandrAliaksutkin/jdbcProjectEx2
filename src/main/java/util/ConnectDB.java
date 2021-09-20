@@ -1,4 +1,4 @@
-package repository;
+package util;
 
 public enum ConnectDB {
     USERNAME ("postgres"),
