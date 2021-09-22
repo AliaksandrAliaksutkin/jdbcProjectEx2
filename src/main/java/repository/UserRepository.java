@@ -1,4 +1,5 @@
 package repository;
+import model.Address;
 import model.User;
 import util.ConnectDB;
 import java.sql.*;
@@ -47,60 +48,64 @@ public class UserRepository {
         }
     }
 
-//    public void addTables(User user, Address address){
-//        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
-//                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-//
-//            String addUser = "INSERT INTO \"User\" (firstName, lastName, age) VALUES (?,?,?);";
-//            String addAddress = " INSERT INTO user_address (city, street, house,id_addressKey) VALUES (?,?,?,?)";
-//
-//            addUserInTable(user, addUser);
-//            addAddressInTable(address,addAddress);
-//            logger.info("User have been successfully added to the table");
-//
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
+    public void addTables(User user, Address address){
+        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
+                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
 
-//    public void addUserInTable(User users, String addUser) {
-//        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
-//                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-//
-//            PreparedStatement preparedStatement =
-//                    conn.prepareStatement(addUser);
-//            preparedStatement.setString(1, users.getFirstName());
-//            preparedStatement.setString(2, users.getLastName());
-//            preparedStatement.setInt(3, users.getAge());
-//            preparedStatement.addBatch();
-//            preparedStatement.executeUpdate();
-////            int rows = preparedStatement.executeUpdate();
-//            logger.info("User have been successfully added to the table");
-//
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
+            String addUser = "INSERT INTO user (id_user ,first_name, last_name, age, id_adress) VALUES  (?,?,?,?,?)";
+            String addAddress = " INSERT INTO user_address (id_adress, city, street, house) VALUES (?,?,?,?)";
 
-//    public void addAddressInTable(Address address, String addAddress) {
-//        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
-//                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-//
-//            PreparedStatement preparedStatement =
-//                    conn.prepareStatement(addAddress);
-//            preparedStatement.setString(1, address.getCity());
-//            preparedStatement.setString(2, address.getStreet());
-//            preparedStatement.setInt(3, address.getHouse());
-//            preparedStatement.setInt(4,address.);
-//            preparedStatement.addBatch();
-//            preparedStatement.executeUpdate();
-////            int rows = preparedStatement.executeUpdate();
-//            logger.info("Address have been successfully added to the table");
-//
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
+            addUserInTable(user, addUser);
+            addAddressInTable(address,addAddress);
+            logger.info("User have been successfully added to the table");
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void addUserInTable(User user, String addUser) {
+        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
+                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
+
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement(addUser);
+            preparedStatement.setString(1, String.valueOf(user.getId_user()));
+            preparedStatement.setString(2, user.getFirstName());
+            preparedStatement.setString(3, user.getLastName());
+            preparedStatement.setInt(4, user.getAge());
+            preparedStatement.setString(5,String.valueOf(user.getId_address()));
+            // Запрос не выполняется, а укладывается в буфер,
+            //  который потом выполняется сразу для всех команд
+            preparedStatement.addBatch();
+            // Выполняем все запросы разом
+            preparedStatement.executeBatch();
+            logger.info("User have been successfully added to the table");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void addAddressInTable(Address address, String addAddress) {
+        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
+                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
+
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement(addAddress);
+            preparedStatement.setString(1, String.valueOf(address.getId_address()));
+            preparedStatement.setString(2, address.getCity());
+            preparedStatement.setString(3, address.getStreet());
+            preparedStatement.setInt(4, address.getHouse());
+            // Запрос не выполняется, а укладывается в буфер,
+            //  который потом выполняется сразу для всех команд
+            preparedStatement.addBatch();
+            // Выполняем все запросы разом
+            preparedStatement.executeBatch();
+            logger.info("Address have been successfully added to the table");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
 
 //    public void deleteUserForAddressInTableById(){
