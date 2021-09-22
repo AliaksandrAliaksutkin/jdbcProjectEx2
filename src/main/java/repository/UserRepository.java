@@ -29,25 +29,21 @@ public class UserRepository {
         }
     }
 
-//    public void createTableUserForAddress() {
-//
-//        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
-//                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-//            PreparedStatement preparedStatement = conn.prepareStatement( "CREATE TABLE user_address (" +
-//                    "id_address serial, " +
-//                    "city varchar(20) NOT NULL," +
-//                    "street varchar(20) NOT NULL, " +
-//                    "house int NOT NULL, " +
-//                    "id_addressKey int NOT NULL," +
-//                    "PRIMARY KEY (id_address)," +
-//                    "FOREIGN KEY (id_addressKey)" +
-//                    "REFERENCES user (id));");
-//            logger.info("Database has been created!");
-//
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//    }
+    public void createTableAddress() {
+
+        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
+                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
+            PreparedStatement preparedStatement = conn.prepareStatement( "CREATE TABLE user_address (" +
+                    "id_address varchar PRIMARY KEY, " +
+                    "city varchar," +
+                    "street varchar, " +
+                    "house integer);");
+            preparedStatement.executeUpdate();
+            logger.info("Address table created successfully!");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
 //    public void addTables(User user, Address address){
 //        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),

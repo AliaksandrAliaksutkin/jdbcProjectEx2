@@ -28,7 +28,7 @@ public class Main {
         UserRepository userRepository = new UserRepository();
 
 //        userRepository.createTableUserForAddress();
-        userRepository.createTableUser();
+//        userRepository.createTableUser();
 
 //        userRepository.addTables(user,address);
 //        userRepository.addTables(user1,address1);
