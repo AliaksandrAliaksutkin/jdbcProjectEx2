@@ -12,17 +12,19 @@ public class UserRepository {
 
         try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
                 ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-            String nameTable = "users";
+            String nameTable = "user";
             String sqlCommand = "CREATE TABLE " + nameTable + "(" +
-                    "id_user int," +
-                    "firstName varchar, " +
+                    "id_user varchar PRIMARY KEY," +
+                    "firstName varchar," +
                     "lastName varchar," +
                     "age integer, " +
-                    "PRIMARY KEY (id_user));";
+                    "id_address varchar, " +
+                    "FOREIGN KEY (id_address)" +
+                    "REFERENCES user_address (id_address)" +
+                    "ON DELETE CASCADE);";
             PreparedStatement preparedStatement = conn.prepareStatement(sqlCommand);
-
             preparedStatement.executeUpdate();
-            logger.info("Database has been created!");
+            logger.info("User table created successfully!");
 
         } catch (Exception ex) {
             ex.printStackTrace();
