@@ -2,18 +2,28 @@ import model.Address;
 import model.User;
 import repository.UserRepository;
 
+import java.util.UUID;
+
 public class Main {
 
     public static void main(String[] args) {
 
-//        User user = new User("Ivan", "Ivanov", 55);
-//        Address address = new Address("Beryoza", "Lenina", 13);
-//        User user1 = new User("Petr", "Petrov", 36);
-//        Address address1 = new Address("Beryoza", "Komsomolskaya", 23);
-//        User user2 = new User("Aleksei", "Alekseev", 43);
-//        Address address2 = new Address("Beloozersk", "Pobedy", 13);
-//        User user3 = new User("Eclampiii", "Evlampiev", 36);
-//        Address address3 = new Address("Beloozersk", "Kutuzova", 53);
+
+        UUID uuid = UUID.randomUUID();
+        User user = new User(UUID.randomUUID(),"Ivan", "Ivanov", 55,uuid);
+        Address address = new Address(uuid, "Beryza", "Lenina", 13);
+
+        UUID uuid1 = UUID.randomUUID();
+        User user1 = new User(UUID.randomUUID(),"Petr", "Petrov", 36,uuid1);
+        Address address1 = new Address(uuid1,"Beryoza", "Komsomolskaya", 23);
+
+        UUID uuid2 = UUID.randomUUID();
+        User user2 = new User(UUID.randomUUID(),"Aleksei", "Alekseev", 43,uuid2);
+        Address address2 = new Address(uuid2,"Beloozersk", "Pobedy", 13);
+
+        UUID uuid3 = UUID.randomUUID();
+        User user3 = new User(UUID.randomUUID(), "Evlampiii", "Evlampiev", 36,uuid3);
+        Address address3 = new Address(uuid3,"Beloozersk", "Kutuzova", 53);
 
         UserRepository userRepository = new UserRepository();
 
