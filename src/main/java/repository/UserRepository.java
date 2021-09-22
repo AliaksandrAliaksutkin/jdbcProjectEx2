@@ -1,29 +1,27 @@
 package repository;
-import model.Address;
 import model.User;
 import util.ConnectDB;
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 public class UserRepository {
 
     private static final Logger logger = Logger.getGlobal();
 
-
-    // создание таблицы user
-
     public void createTableUser() {
 
         try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
                 ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-            String sqlCommand = " CREATE TABLE user_table (id_user serial, " +
-                    "firstName varchar(20), " +
-                    "lastName varchar(20), " +
-                    "age int):";
+            String nameTable = "users";
+            String sqlCommand = "CREATE TABLE " + nameTable + "(" +
+                    "id_user int," +
+                    "firstName varchar, " +
+                    "lastName varchar," +
+                    "age integer, " +
+                    "PRIMARY KEY (id_user));";
             PreparedStatement preparedStatement = conn.prepareStatement(sqlCommand);
+
+            preparedStatement.executeUpdate();
             logger.info("Database has been created!");
 
         } catch (Exception ex) {
@@ -31,36 +29,19 @@ public class UserRepository {
         }
     }
 
-    public void createTableUserAddress() {
-
-        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
-                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-            String sqlCommand = " CREATE TABLE user_table (id_user serial, " +
-                    "firstName varchar(20), " +
-                    "lastName varchar(20), " +
-                    "age int FOREIGN KEY (id_address) " +
-                    "REFERENCES user_address (id_address) " +
-                    "ON DELETE CASCADE);";
-            PreparedStatement preparedStatement = conn.prepareStatement(sqlCommand);
-            logger.info("Database has been created!");
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    // создание таблицы user_address
-
-//    public void createTableAddress() {
+//    public void createTableUserForAddress() {
 //
 //        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
 //                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-//            String sqlCommand = " CREATE TABLE user_address (id_address serial, " +
-//                    "city varchar(20), " +
-//                    "street varchar(20), " +
-//                    "house int);";
-//
-//            PreparedStatement preparedStatement = conn.prepareStatement(sqlCommand);
+//            PreparedStatement preparedStatement = conn.prepareStatement( "CREATE TABLE user_address (" +
+//                    "id_address serial, " +
+//                    "city varchar(20) NOT NULL," +
+//                    "street varchar(20) NOT NULL, " +
+//                    "house int NOT NULL, " +
+//                    "id_addressKey int NOT NULL," +
+//                    "PRIMARY KEY (id_address)," +
+//                    "FOREIGN KEY (id_addressKey)" +
+//                    "REFERENCES user (id));");
 //            logger.info("Database has been created!");
 //
 //        } catch (Exception ex) {
@@ -68,38 +49,54 @@ public class UserRepository {
 //        }
 //    }
 
+//    public void addTables(User user, Address address){
+//        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
+//                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
+//
+//            String addUser = "INSERT INTO \"User\" (firstName, lastName, age) VALUES (?,?,?);";
+//            String addAddress = " INSERT INTO user_address (city, street, house,id_addressKey) VALUES (?,?,?,?)";
+//
+//            addUserInTable(user, addUser);
+//            addAddressInTable(address,addAddress);
+//            logger.info("User have been successfully added to the table");
+//
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 
-
-    public void addUserInTable(User users) {
-        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
-                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-
-            PreparedStatement preparedStatement =
-                    conn.prepareStatement("INSERT INTO user_table (firstName, lastName, age) VALUES (?,?,?);");
-            preparedStatement.setString(1, users.getFirstName());
-            preparedStatement.setString(2, users.getLastName());
-            preparedStatement.setInt(3, users.getAge());
-
-            int rows = preparedStatement.executeUpdate();
-            logger.info("User have been successfully added to the table");
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-
-//    public void addAddressInTable(Address address) {
+//    public void addUserInTable(User users, String addUser) {
 //        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
 //                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
 //
 //            PreparedStatement preparedStatement =
-//                    conn.prepareStatement("INSERT INTO user_address (city, street, house) VALUES (?,?,?);");
+//                    conn.prepareStatement(addUser);
+//            preparedStatement.setString(1, users.getFirstName());
+//            preparedStatement.setString(2, users.getLastName());
+//            preparedStatement.setInt(3, users.getAge());
+//            preparedStatement.addBatch();
+//            preparedStatement.executeUpdate();
+////            int rows = preparedStatement.executeUpdate();
+//            logger.info("User have been successfully added to the table");
+//
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
+
+//    public void addAddressInTable(Address address, String addAddress) {
+//        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
+//                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
+//
+//            PreparedStatement preparedStatement =
+//                    conn.prepareStatement(addAddress);
 //            preparedStatement.setString(1, address.getCity());
 //            preparedStatement.setString(2, address.getStreet());
 //            preparedStatement.setInt(3, address.getHouse());
-//
-//            int rows = preparedStatement.executeUpdate();
+//            preparedStatement.setInt(4,address.);
+//            preparedStatement.addBatch();
+//            preparedStatement.executeUpdate();
+////            int rows = preparedStatement.executeUpdate();
 //            logger.info("Address have been successfully added to the table");
 //
 //        } catch (SQLException ex) {
@@ -107,123 +104,32 @@ public class UserRepository {
 //        }
 //    }
 
-    // получение всех юзеров
 
-//    public List<User> getAllUsers() {
+//    public void deleteUserForAddressInTableById(){
 //        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
 //                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-//            List<User> userList = new ArrayList<>();
-//            try (PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM user_table");
-//                 ResultSet resultSet = preparedStatement.executeQuery();) {
-//                while (resultSet.next()) {
-//                    User user = new User();
-//                    int id_user = resultSet.getInt(1);
-//                    user.setId(id_user);
-//                    user.setFirstName(resultSet.getString(2));
-//                    user.setLastName(resultSet.getString(3));
-//                    user.setAge(resultSet.getInt(4));
-//                    userList.add(user);
-//                    logger.info("Users have been successfully added to userList");
-//                }
+//            PreparedStatement preparedStatement =
+//                    conn.prepareStatement("DELETE FROM user_address WHERE id_address = 2");
+//            int rows = preparedStatement.executeUpdate();
+//            logger.info("User deleted it tables successfully, in quantity: " + rows);
+//
+//        }catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//    }
+//
+//    public void deleteAllUserInTable () {
+//            try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
+//                    ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
+//                PreparedStatement preparedStatement =
+//                        conn.prepareStatement("DELETE FROM user_address");
+//                int rows = preparedStatement.executeUpdate();
+//                logger.info("Users deleted it tables successfully, in quantity: " + rows);
+//
 //            } catch (Exception ex) {
 //                ex.printStackTrace();
 //            }
-//            return userList;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
 //        }
-//        return null;
-//    }
-
-    // плучение по id
-
-//    public User getUsersById() {
-//        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
-//                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-//            User user = null;
-//            try {
-//                PreparedStatement preparedStatement = conn.prepareStatement("SELECT*FROM user_table WHERE id=6");
-//                ResultSet resultSet = preparedStatement.executeQuery();
-//                while (resultSet.next()) {
-//                    user = new User();
-//                    int id_user = resultSet.getInt(1);
-//                    user.setId(id_user);
-//                    user.setFirstName(resultSet.getString(2));
-//                    user.setLastName(resultSet.getString(3));
-//                    user.setAge(resultSet.getInt(4));
-//
-//                }
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//            }
-//            return user;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//            return null;
-//    }
-
-    // Изменение по id
-
-//    public void updateUserInTable(User users){
-//       try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
-//               ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-//           PreparedStatement preparedStatement =
-//                   conn.prepareStatement("UPDATE user_table SET firstName=?, lastName=?, age=? WHERE id_user = 2");
-//           preparedStatement.setString(1, users.getFirstName());
-//           preparedStatement.setString(2,users.getLastName());
-//           preparedStatement.setInt(3, users.getAge());
-//
-//           int rows = preparedStatement.executeUpdate();
-//           logger.info("user state changed successfully, in quantity: " + rows);
-//
-//
-//       } catch (SQLException ex) {
-//           ex.printStackTrace();
-//       }
-//
-//   }
-
-   // удаление по id
-
-//    public void deleteUserInTableById(){
-//    try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
-//            ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-//        PreparedStatement preparedStatement =
-//                conn.prepareStatement("DELETE FROM user_table WHERE id_user = 2");
-//        int rows = preparedStatement.executeUpdate();
-//        logger.info("User deleted it tables successfully, in quantity: " + rows);
-//
-//    }catch (Exception ex) {
-//      ex.printStackTrace();
-//    }
-//}
-
-    public void deleteUserForAddressInTableById(){
-        try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
-                ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-            PreparedStatement preparedStatement =
-                    conn.prepareStatement("DELETE FROM user_address WHERE id_address = 1");
-            int rows = preparedStatement.executeUpdate();
-            logger.info("User deleted it tables successfully, in quantity: " + rows);
-
-        }catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void deleteAllUserInTable () {
-            try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
-                    ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
-                PreparedStatement preparedStatement =
-                        conn.prepareStatement("DELETE FROM user_table");
-                int rows = preparedStatement.executeUpdate();
-                logger.info("Users deleted it tables successfully, in quantity: " + rows);
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
 
 }
 
