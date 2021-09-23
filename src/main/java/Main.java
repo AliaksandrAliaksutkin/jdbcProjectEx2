@@ -12,32 +12,36 @@ public class Main {
 
 
         UUID uuid = UUID.randomUUID();
-        User user = new User(UUID.randomUUID(),"Ivan", "Ivanov", 55,uuid);
-        Address address = new Address(uuid, "Beryza", "Lenina", 13);
+        UUID uuid11 = UUID.randomUUID();
+        User user = new User (uuid,"Ivan", "Ivanov", 55);
+        Address address = new Address(uuid11, "Beryza", "Lenina", 13,uuid);
 
         UUID uuid1 = UUID.randomUUID();
-        User user1 = new User(UUID.randomUUID(),"Petr", "Petrov", 36,uuid1);
-        Address address1 = new Address(uuid1,"Beryoza", "Komsomolskaya", 23);
+        UUID uuid21 = UUID.randomUUID();
+        User user1 = new User (uuid1,"Petr", "Petrov", 36);
+        Address address1 = new Address(uuid21,"Beryoza", "Komsomolskaya", 23,uuid1);
 
         UUID uuid2 = UUID.randomUUID();
-        User user2 = new User(UUID.randomUUID(),"Aleksei", "Alekseev", 43,uuid2);
-        Address address2 = new Address(uuid2,"Beloozersk", "Pobedy", 13);
+        UUID uuid31 = UUID.randomUUID();
+        User user2 = new User(uuid2,"Aleksei", "Alekseev", 43);
+        Address address2 = new Address(uuid31,"Beloozersk", "Pobedy", 13,uuid2);
 
         UUID uuid3 = UUID.randomUUID();
-        User user3 = new User(UUID.randomUUID(), "Evlampiii", "Evlampiev", 36,uuid3);
-        Address address3 = new Address(uuid3,"Beloozersk", "Kutuzova", 53);
+        UUID uuid41 = UUID.randomUUID();
+        User user3 = new User(uuid3, "Evlampiii", "Evlampiev", 36);
+        Address address3 = new Address(uuid41,"Beloozersk", "Kutuzova", 53,uuid3);
 
         UserRepository userRepository = new UserRepository();
 
-//        userRepository.createTableAddress();
 //        userRepository.createTableUser();
+//        userRepository.createTableAddress();
 
-//        userRepository.addTables(user,address);
+//        userRepository.addTables(user, address);
 //        userRepository.addTables(user1,address1);
 //        userRepository.addTables(user2,address2);
 //        userRepository.addTables(user3,address3);
-
-//        userRepository.deleteUserById(uuid3);
+//
+//        userRepository.deleteUserById(uuid2);
 
         List<User> list = userRepository.getUserByHouse(address2.getHouse());
         System.out.println(list);

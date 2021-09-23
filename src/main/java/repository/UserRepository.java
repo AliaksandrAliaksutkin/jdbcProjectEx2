@@ -12,18 +12,6 @@ public class UserRepository {
 
     private static final Logger logger = Logger.getGlobal();
 
-    public void addTables(User user, Address address) {
-        String nameTable = "users";
-        String nameTable1 = "user_address";
-
-        String addUser = "INSERT INTO " + nameTable + "(id_user ,firstName, lastName, age, id_address) VALUES  (?,?,?,?,?)";
-        String addAddress = " INSERT INTO " + nameTable1 + "(id_address, city, street, house) VALUES (?,?,?,?)";
-
-        addUserInTable(user, addUser);
-        addAddressInTable(address, addAddress);
-
-    }
-
     public void createTableUser() {
 
         try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
@@ -32,9 +20,7 @@ public class UserRepository {
                     "(id_user varchar PRIMARY KEY," +
                     "firstName varchar," +
                     "lastName varchar," +
-                    "age integer, " +
-                    "id_address varchar, " +
-                    "FOREIGN KEY (id_address) REFERENCES user_address (id_address) ON DELETE CASCADE);");
+                    "age integer);");
             preparedStatement.executeUpdate();
             logger.info("User table created successfully!");
 
@@ -51,12 +37,25 @@ public class UserRepository {
                     "id_address varchar PRIMARY KEY, " +
                     "city varchar," +
                     "street varchar, " +
-                    "house integer);");
+                    "house integer," +
+                    "id_user varchar, " +
+                    "FOREIGN KEY (id_user) REFERENCES users (id_user) ON DELETE CASCADE );");
             preparedStatement.executeUpdate();
             logger.info("Address table created successfully!");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void addTables(User user, Address address) {
+
+        String addUser = "INSERT INTO users (id_user ,firstName, lastName, age) VALUES  (?,?,?,?)";
+        String addAddress = " INSERT INTO user_address (id_address, city, street, house, id_user) VALUES (?,?,?,?,?)";
+
+        addUserInTable(user, addUser);
+        addAddressInTable(address, addAddress);
+
+
     }
 
     public void addUserInTable(User user, String addUser) {
@@ -68,7 +67,6 @@ public class UserRepository {
             preparedStatement.setString(2, user.getFirstName());
             preparedStatement.setString(3, user.getLastName());
             preparedStatement.setInt(4, user.getAge());
-            preparedStatement.setString(5, String.valueOf(user.getId_address()));
             preparedStatement.addBatch();
             preparedStatement.executeUpdate();
             logger.info("User have been successfully added to the table");
@@ -89,6 +87,7 @@ public class UserRepository {
             preparedStatement.setString(2, address.getCity());
             preparedStatement.setString(3, address.getStreet());
             preparedStatement.setInt(4, address.getHouse());
+            preparedStatement.setString(5, String.valueOf(address.getId_user()));
             preparedStatement.addBatch();
             preparedStatement.executeUpdate();
             logger.info("Address have been successfully added to the table");
@@ -103,11 +102,10 @@ public class UserRepository {
         try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
                 ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
             PreparedStatement preparedStatement =
-                    conn.prepareStatement("DELETE FROM users WHERE id_address = ?");
-            preparedStatement.setString(1, uuid.toString());
+                    conn.prepareStatement("DELETE FROM users WHERE id_user = ?");
+            preparedStatement.setString(1,uuid.toString());
             preparedStatement.executeUpdate();
-            int rows = preparedStatement.executeUpdate();
-            logger.info("User deleted it tables successfully, in quantity: " + rows);
+            logger.info("User deleted it tables successfully, in quantity.");
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -119,7 +117,7 @@ public class UserRepository {
         try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
                 ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
             PreparedStatement preparedStatement =
-                    conn.prepareStatement("SELECT * FROM user_address WHERE house =" + house);
+                    conn.prepareStatement("SELECT * FROM user_address WHERE house = " + house);
             ResultSet resultSet = preparedStatement.executeQuery();
             try {
                 while (resultSet.next()) {
