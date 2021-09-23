@@ -101,6 +101,7 @@ public class UserRepository {
     public void deleteUserById(UUID uuid) {
         try (Connection conn = DriverManager.getConnection(ConnectDB.URL.getConnectDB(),
                 ConnectDB.USERNAME.getConnectDB(), ConnectDB.PASSWORD.getConnectDB())) {
+
             PreparedStatement preparedStatement =
                     conn.prepareStatement("DELETE FROM users WHERE id_user = ?");
             preparedStatement.setString(1,uuid.toString());

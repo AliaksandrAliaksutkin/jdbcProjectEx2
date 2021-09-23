@@ -41,10 +41,10 @@ public class Main {
 //        userRepository.addTables(user2,address2);
 //        userRepository.addTables(user3,address3);
 //
-//        userRepository.deleteUserById(uuid2);
+        userRepository.deleteUserById(uuid3);
 
-        List<User> list = userRepository.getUserByHouse(address2.getHouse());
-        System.out.println(list);
+//        List<User> list = userRepository.getUserByHouse(address2.getHouse());
+//        System.out.println(list);
 
     }
 
