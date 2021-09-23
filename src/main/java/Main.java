@@ -1,7 +1,9 @@
 import model.Address;
 import model.User;
 import repository.UserRepository;
+import util.ConnectDB;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Main {
@@ -27,7 +29,7 @@ public class Main {
 
         UserRepository userRepository = new UserRepository();
 
-//        userRepository.createTableUserForAddress();
+//        userRepository.createTableAddress();
 //        userRepository.createTableUser();
 
 //        userRepository.addTables(user,address);
@@ -35,8 +37,10 @@ public class Main {
 //        userRepository.addTables(user2,address2);
 //        userRepository.addTables(user3,address3);
 
-//        userRepository.deleteAllUserInTable();
-//        userRepository.deleteUserForAddressInTableById();
+//        userRepository.deleteUserById(uuid3);
+
+        List<User> list = userRepository.getUserByHouse(address2.getHouse());
+        System.out.println(list);
 
     }
 
