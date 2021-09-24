@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class UserRepository {
 
-    private static final Logger logger = Logger.getGlobal();
+    private static final Logger logger = Logger.getGlobal();//todo сделай это ломбоком
 
     public void createTableAddress() {
 
@@ -121,7 +121,7 @@ public class UserRepository {
             try {
                 while (resultSet.next()) {
                     User user = new User();
-                    user.setId_usergit(UUID.fromString(resultSet.getString(1)));
+                    user.setId_user(UUID.fromString(resultSet.getString(1)));
                     user.setFirstName(resultSet.getString(2));
                     user.setLastName(resultSet.getString(3));
                     user.setAge(resultSet.getInt(4));
