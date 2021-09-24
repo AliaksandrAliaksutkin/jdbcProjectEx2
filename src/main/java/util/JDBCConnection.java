@@ -1,7 +1,5 @@
 package util;
 
-import util.ConnectDB;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
