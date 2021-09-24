@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class UserRepository {
 
-    private static final Logger logger = Logger.getGlobal();
+    private static final Logger logger = Logger.getGlobal();//todo сделай это ломбоком
 
     public void createTableUser() {
 
