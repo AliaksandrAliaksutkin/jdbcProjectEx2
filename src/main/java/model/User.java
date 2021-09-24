@@ -12,6 +12,6 @@ public class User {
     private String firstName;
     private String lastName;
     private int age;
-
+//todo корректней чтоб id адреса был у юзера, а не наоборот как у тебя
 
 }
